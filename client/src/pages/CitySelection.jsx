@@ -34,7 +34,7 @@ const CitySelection = () => {
     <div className="min-h-screen p-6 bg-yellow-50 flex flex-col items-center">
       <h2 className="text-3xl font-bold mb-6">City Selection</h2>
       <div className="space-y-4 w-full max-w-xl">
-  {localSelections.map((cop, index) => (
+      {localSelections.map((cop, index) => (
     <div key={index} className="flex flex-col md:flex-row items-center justify-between bg-white p-4 shadow rounded-lg">
       <span className="text-lg font-semibold">{cop.name}</span>
       <select
