@@ -100,6 +100,8 @@ const VehicleSelection = () => {
                       <option value="">Select a Vehicle</option>
                       {vehicleData.map((vehicle) => {
                         const totalUsed = usageCount(vehicle.name);
+                        console.log("totalUsed", vehicle);
+                        
                         const disabled = isDisabled(vehicle, roundTripDistance, totalUsed);
 
                         return (
