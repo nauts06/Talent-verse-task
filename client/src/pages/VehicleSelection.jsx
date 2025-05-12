@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import  { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -27,15 +27,15 @@ const VehicleSelection = () => {
   });
 
   // Pre-calculate vehicle usage to disable unavailable ones
-  const calculateVehicleUsage = (selections) => {
-    const usage = {};
-    selections.forEach((cop) => {
-      if (cop.vehicle) {
-        usage[cop.vehicle] = (usage[cop.vehicle] || 0) + 1;
-      }
-    });
-    return usage;
-  };
+  // const calculateVehicleUsage = (selections) => {
+  //   const usage = {};
+  //   selections.forEach((cop) => {
+  //     if (cop.vehicle) {
+  //       usage[cop.vehicle] = (usage[cop.vehicle] || 0) + 1;
+  //     }
+  //   });
+  //   return usage;
+  // };
 
   const getDistanceForCity = (cityName) => {
     const city = cities.find((c) => c.name === cityName);
@@ -61,7 +61,7 @@ const VehicleSelection = () => {
         onSubmit={handleSubmit}
       >
         {({ values, setFieldValue }) => {
-          const vehicleUsage = calculateVehicleUsage(values.selections);
+          // const vehicleUsage = calculateVehicleUsage(values.selections);
 
           return (
             <Form className="space-y-4 w-full max-w-xl">
