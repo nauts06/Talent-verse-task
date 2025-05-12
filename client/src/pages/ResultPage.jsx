@@ -8,44 +8,91 @@ const ResultPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-   
     const fetchResult = async () => {
       try {
         const response = await axios.post("http://localhost:5000/api/submit", copSelections);
-
-        console.log("response", response.data);
-        
         setResult(response.data);
       } catch (error) {
         console.error("Error fetching result:", error);
       }
     };
 
-   fetchResult();
-  }, [copSelections, navigate, setResult]);
+    fetchResult();
+  }, [copSelections, setResult]);
 
-  if (!result) return <div className="p-6 text-center">Calculating result....</div>;
+  if (!result) return <div className="p-6 text-center">Calculating result...</div>;
+
+  // Dynamically get background and image paths
+  const getCityBackground = (cityName) => {
+    const fileName = cityName.replace(/\s+/g, "") + ".png";
+    try {
+      return require(`../assets/cities/${fileName}`);
+    } catch {
+      return null;
+    }
+  };
+
+  const getCopImage = (copName) => {
+    try {
+      const number = copName.split(" ")[1]; // Cop 1 → 1
+      return require(`../assets/cops/Cop${number}.png`);
+    } catch {
+      return null;
+    }
+  };
+
+  const backgroundImage = getCityBackground(result.criminalCity);
+  const capturedCopImage = result.capturedBy ? getCopImage(result.capturedBy) : null;
+  const criminalImage = require("../assets/criminal.png");
 
   return (
-    <div className="min-h-screen p-8 bg-purple-50 flex flex-col items-center text-center">
-      <h2 className="text-3xl font-bold mb-4"> Result</h2>
-      <p className="text-xl mb-2">Criminal was hiding in <strong>{result.criminalCity}</strong>.</p>
-      {result.captured ? (
-        <p className="text-green-600 text-2xl font-semibold mt-4">
-         {result.capturedBy} successfully captured the fugitive!
+    <div
+      className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-8 text-white text-center"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundBlendMode: "overlay",
+        backgroundColor: "rgba(0,0,0,0.6)",
+      }}
+    >
+      <div className="bg-black bg-opacity-60 p-8 rounded-xl shadow-lg max-w-2xl w-full">
+        <h2 className="text-4xl font-bold mb-4">🎯 Game Result</h2>
+        <p className="text-xl mb-4">
+          The criminal was hiding in <strong>{result.criminalCity}</strong>.
         </p>
-      ) : (
-        <p className="text-red-600 text-2xl font-semibold mt-4">
-               All cops failed. The fugitive escaped!
-        </p>
-      )}
 
-      <button
-        className="mt-10 px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-        onClick={() => navigate("/")}
-      >
-         Play Again
-      </button>
+        {result.captured ? (
+          <>
+            <p className="text-green-400 text-2xl font-semibold mb-4">
+              🕵️ {result.capturedBy} successfully captured the fugitive!
+            </p>
+            {capturedCopImage && (
+              <img
+                src={capturedCopImage}
+                alt={result.capturedBy}
+                className="w-48 h-48 rounded-full mx-auto shadow-lg border-4 border-green-500"
+              />
+            )}
+          </>
+        ) : (
+          <>
+            <p className="text-red-400 text-2xl font-semibold mb-4">
+              😞 All cops failed. The fugitive escaped!
+            </p>
+            <img
+              src={criminalImage}
+              alt="Criminal"
+              className="w-48 h-48 rounded-full mx-auto shadow-lg border-4 border-red-500"
+            />
+          </>
+        )}
+
+        <button
+          className="mt-8 px-8 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-semibold"
+          onClick={() => navigate("/")}
+        >
+          🔁 Play Again
+        </button>
+      </div>
     </div>
   );
 };

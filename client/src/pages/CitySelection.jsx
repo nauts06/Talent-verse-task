@@ -30,13 +30,14 @@ const CitySelection = () => {
   };
 
   const getImagePath = (cityName) => {
-    const fileName = cityName.replace(/\s+/g, "") + ".png"; // e.g., "NarmisCity.jpg"
+    const fileName = cityName.replace(/\s+/g, "") + ".png";
     return require(`../assets/cities/${fileName}`);
   };
 
   return (
-    <div className="min-h-screen p-6 bg-gradient-to-br from-yellow-100 to-yellow-300 flex flex-col items-center">
-      <h2 className="text-4xl font-bold mb-10 text-gray-800">🏙️ City Selection</h2>
+   <div className="min-h-screen p-6 bg-gradient-to-br from-slate-800 via-pink-400 to-indigo-900 flex flex-col items-center text-white">
+
+      <h2 className="text-4xl font-bold mb-10 text-white-800">🏙️ City Selection</h2>
 
       <Formik
         initialValues={initialValues}
