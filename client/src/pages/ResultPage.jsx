@@ -10,7 +10,8 @@ const ResultPage = () => {
   useEffect(() => {
     const fetchResult = async () => {
       try {
-        const response = await axios.post("http://localhost:5000/api/submit", copSelections);
+        // const response = await axios.post("http://localhost:5000/api/submit", copSelections);
+        const response = await axios.post("https://talent-verse-task-production.up.railway.app/api/submit", copSelections);
         setResult(response.data);
       } catch (error) {
         console.error("Error fetching result:", error);
