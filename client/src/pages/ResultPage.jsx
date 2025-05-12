@@ -8,14 +8,13 @@ const ResultPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!copSelections || !copSelections[0].vehicle) {
-      navigate("/");
-      return;
-    }
-
+   
     const fetchResult = async () => {
       try {
         const response = await axios.post("http://localhost:5000/api/submit", copSelections);
+
+        console.log("response", response.data);
+        
         setResult(response.data);
       } catch (error) {
         console.error("Error fetching result:", error);
