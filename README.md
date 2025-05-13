@@ -24,7 +24,9 @@ Deployment : Netlify (Frontend) + Render/Railway (Backend)
 
 1-Clone the repo
 2-cd client 
-3-npm install
+3-npm install 
+   and src/pages/ResultPage.jsx 
+   uncomment line no 13(remove  in beginning //)  and comment the line no 14 (add // in beginning)
 4-npm start
 5- cd server (backend)
 6-npm install
